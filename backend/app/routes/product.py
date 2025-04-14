@@ -7,13 +7,13 @@ from app import models, schemas
 router = APIRouter()
 
 # GET | Obtener todos los productos
-@router.get("/products", response_model=List[schemas.ProductOut])
+@router.get("/products", response_model=List[schemas.ProductOut], summary="Obtiene todos los productos")
 def get_products(db: Session = Depends(get_db)):
     products = db.query(models.Product).all()
     return products
 
 # POST |Añadir un producto
-@router.post("/products", response_model=schemas.ProductOut, summary="Añade un nuevo producto")
+@router.post("/products", response_model=schemas.ProductOut, summary="Crea un nuevo producto")
 def add_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     existe = db.query(models.Product).filter(models.Product.product_name == product.product_name).first()
     if existe:
@@ -26,7 +26,7 @@ def add_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     return new_product
 
 # PUT | Modificar un producto
-@router.put("/products/{product_id}", response_model=schemas.ProductOut, summary="Modifica un producto existente")
+@router.put("/products/{product_id}", response_model=schemas.ProductOut, summary="Modifica un producto")
 def update_product(product_id: int, updated_product: schemas.ProductCreate, db: Session = Depends(get_db)):
     producto = db.query(models.Product).filter(models.Product.product_id == product_id).first()
     if not producto:
