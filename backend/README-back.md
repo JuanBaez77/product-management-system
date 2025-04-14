@@ -1,6 +1,12 @@
 # FastAPI CRUD - Products
 
-CRUD API para manejar productos. Hecha con FastAPI y una base de datos en memoria. Lista para conectarse con un frontend hecho en React.
+CRUD API para manejar productos. Hecha con FastAPI conectado con una Database. Lista para conectarse con un frontend hecho en React.
+
+## Instalar requirements.txt (en caso de no tenerlos)
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Correr el proyecto
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import FruitList from './components/FruitList';
+import AddCategory from './components/category/AddCategory';
+import CategoryList from './components/category/CategoryList';
 
 const App = () => {
   return (
@@ -9,7 +10,7 @@ const App = () => {
         <h1>Hola quease</h1>
       </header>
       <main>
-        <FruitList />
+        <CategoryList />
       </main>
     </div>
   );
