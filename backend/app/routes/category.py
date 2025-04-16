@@ -7,12 +7,21 @@ from app import models, schemas
 router = APIRouter()
 
 # GET | Devuelve todas las categorias
-@router.get("/categories", response_model=List[schemas.CategoryOut], summary="Obtiene todas las categorias")
+@router.get("", response_model=List[schemas.CategoryOut], summary="Obtiene todas las categorias")
 def get_categories(db: Session = Depends(get_db)):
     return db.query(models.Category).all()
 
+
+# GET | Devuelve una categoria
+@router.get("/{category_id}", response_model=schemas.CategoryOut, summary="Obtiene una categoria")
+def get_category_by_id(category_id: int, db: Session = Depends(get_db)):
+    category_id = db.query(models.Category).filter(models.Category.category_id == category_id).first()
+    if not category_id:
+        raise HTTPException(status_code=404, detail="La categoria no existe...")
+    return category_id
+
 # POST | Crea una nueva categoria
-@router.post("/categories", response_model=schemas.CategoryOut, summary="Crea una nueva categoria")
+@router.post("", response_model=schemas.CategoryOut, summary="Crea una nueva categoria")
 def create_category(category: schemas.CategoryCreate, db: Session = Depends(get_db)):
     existe = db.query(models.Category).filter(models.Category.category_name == category.category_name).first()
     if existe:
@@ -25,7 +34,7 @@ def create_category(category: schemas.CategoryCreate, db: Session = Depends(get_
     return new_category
 
 # PUT | Modifica una categoria
-@router.put("/categories/{category_id}", response_model=schemas.CategoryOut, summary="Modifica una categoria")
+@router.put("{category_id}", response_model=schemas.CategoryOut, summary="Modifica una categoria")
 def category_update(category_id: int, updated_data: schemas.CategoryCreate, db: Session = Depends(get_db)):
     category = db.query(models.Category).filter(models.Category.category_id == category_id).first()
     if not category:
@@ -38,7 +47,7 @@ def category_update(category_id: int, updated_data: schemas.CategoryCreate, db: 
     return category
 
 # DELETE | Elimona una categoria
-@router.delete("/categories/{category_id}", response_model=schemas.CategoryOut, summary="Elimina una categoria")
+@router.delete("{category_id}", response_model=schemas.CategoryOut, summary="Elimina una categoria")
 def category_delete(category_id: int, db: Session = Depends(get_db)):
     category = db.query(models.Category).filter(models.Category.category_id == category_id).first()
     if not category:
