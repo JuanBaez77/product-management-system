@@ -12,6 +12,14 @@ def get_products(db: Session = Depends(get_db)):
     products = db.query(models.Product).all()
     return products
 
+# GET | Obtener un producto
+@router.get("/{product_id}", response_model=schemas.ProductOut, summary="Obtiene un producto")
+def get_product_by_id(product_id: int, db: Session = Depends(get_db)):
+    product_id = db.query(models.Product).filter(models.Product.product_id == product_id).first()
+    if not product_id:
+        raise HTTPException(status_code=404, detail="El producto no existe")
+    return product_id   
+
 # POST |Añadir un producto
 @router.post("/products", response_model=schemas.ProductOut, summary="Crea un nuevo producto")
 def add_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
