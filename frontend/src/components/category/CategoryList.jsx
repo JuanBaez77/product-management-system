@@ -1,41 +1,80 @@
+
+// CategoryList.jsx
+// Este componente muestra una lista de categorías obtenidas desde el backend.
+// Incluye manejo de carga, errores y posibilidad de cancelar la solicitud HTTP.
+
+
 import React, { useEffect, useState } from 'react';
 import api from '../../../api.jsx';
-import handleAddCategory from './AddCategory.jsx';
-import AddCategory from './AddCategory.jsx';
+
 
 const CategoryList = () => {
-  const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]); //Array donde se guardaran las categorias
+  const [loading, setLoading] = useState(true); //Variable para controlar el loading
+  const [error, setError] = useState(null); //Variable para controlar los errores
+  const [controller, setController] = useState(null); //Variable para controlar la peticion
 
-  const fetchCategory = async () => {
+  //Funcion para obtener las categorias
+  const fetchCategories = async () => {
+    const abortController = new AbortController(); //Para cancelar la peticion si el componente se cierra
+    setController(abortController); //Guardamos el controlador
+
     try {
-      const response = await api.get('');
-      console.log("GET response:", response.data);
-      setCategory(response.data);
+      setLoading(true); //En caso de recargar asignamos true a loading nuevamente
+      setError(null); //Limpia errores anteriores
+
+      const response = await api.get('/categories', { signal: abortController.signal });
+      //console.log('Respuesta del backend:', response.data); Comprobar si la respuesta del backend esta bien
+      setCategories(response.data);
     } catch (error) {
-      console.error("Error fetching categories:", error.response?.data || error.message);
+          if (error.code === 'ERR_CANCELED') { //Por si la peticion se cancela y no es un error
+              console.log('Request canceled by user');
+          } else {
+            setError(error);
+            console.error('Error fetching categories:', error);
+          }
+    } finally {
+        setLoading(false);
     }
   };
 
+  //Funcion para cancelar la peticion
+  const handleCancelRequest = () => {
+    if (controller) {
+      controller.abort();
+      setError(new Error("Request canceled"));
+      setLoading(false);
+    }
+  };
+
+  //useEffect para llamar a fetchCategories al montar el componente
   useEffect(() => {
-    fetchCategory();
+    fetchCategories();
+
+    //Funcion para limpiar la peticion
+    return () => {
+      if (controller) {
+        controller.abort(); //Funcion para limpiar la peticion antes de que se termine de realizar
+        setError(new Error('Request canceled'));
+      }
+    }
   }, []);
 
-
+  //Render
   return (
     <div>
-      <h2>Category List</h2>
-      <ul>
-        {category?.map((cat) => (
-          <li key={cat.id_category}>
-              {cat.category_name}
-          </li>
-        ))}
-      </ul>
-      <AddCategory addCategory={handleAddCategory} />
-    </div>
+      <h2>Categories</h2>  
+       <button onClick={handleCancelRequest}>Cancel Request</button>
+        <ul>
+          {error && <li>Error: {error.message}</li>}
+          {loading && <li>Loading...</li>}
+          {!loading && !error && categories.map((category) => (
+            //console.log(category), Comprobar si se repilen las categorias
+            <li key={category.category_id}>{category.category_name}</li>
+            ))}
+        </ul>
+  </div>
   );
 };
 
-
 export default CategoryList;
-
