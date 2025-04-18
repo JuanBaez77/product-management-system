@@ -64,13 +64,13 @@ const CategoryList = () => {
   return (
     <div>
       <h2>Categories</h2>  
-       <button onClick={handleCancelRequest}>Cancel Request</button>
+       <button onClick={handleCancelRequest}>Cancel Request</button> //Boton para cancelar la peticion
         <ul>
-          {error && <li>Error: {error.message}</li>}
-          {loading && <li>Loading...</li>}
-          {!loading && !error && categories.map((category) => (
+          {error && <li>Error: {error.message}</li>}//Comprobar si hay errores
+          {loading && <li>Loading...</li>}//Comprobar si esta cargando
+          {!loading && !error && categories.map((category) => ( //Si no esta cargando ni hay errores obtenemos las categorias
             //console.log(category), Comprobar si se repilen las categorias
-            <li key={category.category_id}>{category.category_name}</li>
+            <li key={category.category_id}>{category.category_name}</li> //Utilizamos el id como key para identificar cada categoria
             ))}
         </ul>
   </div>
