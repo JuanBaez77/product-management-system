@@ -1,3 +1,7 @@
+// AddCategory.jsx
+// Este componente muestra un formulario para agregar una nueva categoría
+// Incluye manejo de carga y errores
+
 import React, { useState } from 'react';  
 import api from '../../../api.jsx';
 
@@ -28,15 +32,16 @@ const AddCategory = () => {
     }
   };
     
-  
   return (
     <div>
       <h2>Add Category</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <input placeholder='Category Name...' type="text" value={name} onChange={(e) => setName(e.target.value)} />
+          <input 
+                placeholder='Category Name...' type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
-        <button type="submit">{loading ? 'Loading...' : 'Add Category'}</button>
+        {/* si loading es true muestra 'Loading...' y si no 'Add Category */}
+        <button type="submit">{loading ? 'Loading...' : 'Add Category'}</button> 
       </form>
       {error && <p>{error.message}</p>}
     </div>

@@ -34,7 +34,7 @@ def create_category(category: schemas.CategoryCreate, db: Session = Depends(get_
     return new_category
 
 # PUT | Modifica una categoria
-@router.put("{category_id}", response_model=schemas.CategoryOut, summary="Modifica una categoria")
+@router.put("/{category_id}", response_model=schemas.CategoryOut, summary="Modifica una categoria")
 def category_update(category_id: int, updated_data: schemas.CategoryCreate, db: Session = Depends(get_db)):
     category = db.query(models.Category).filter(models.Category.category_id == category_id).first()
     if not category:
@@ -47,7 +47,7 @@ def category_update(category_id: int, updated_data: schemas.CategoryCreate, db: 
     return category
 
 # DELETE | Elimona una categoria
-@router.delete("{category_id}", response_model=schemas.CategoryOut, summary="Elimina una categoria")
+@router.delete("/{category_id}", response_model=schemas.CategoryOut, summary="Elimina una categoria")
 def category_delete(category_id: int, db: Session = Depends(get_db)):
     category = db.query(models.Category).filter(models.Category.category_id == category_id).first()
     if not category:

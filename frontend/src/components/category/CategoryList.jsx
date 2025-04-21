@@ -1,7 +1,6 @@
-
 // CategoryList.jsx
-// Este componente muestra una lista de categorías obtenidas desde el backend.
-// Incluye manejo de carga, errores y posibilidad de cancelar la solicitud HTTP.
+// Este componente muestra una lista de categorías obtenidas desde el backend
+// Incluye manejo de carga, errores y posibilidad de cancelar la solicitud HTTP
 
 import React, { useEffect, useState } from 'react';
 import api from '../../../api.jsx';
