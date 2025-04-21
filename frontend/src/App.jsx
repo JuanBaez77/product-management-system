@@ -3,6 +3,7 @@ import './App.css';
 import AddCategory from './components/category/AddCategory';
 import CategoryList from './components/category/CategoryList';
 import DeleteCategory from './components/category/DeleteCategory';
+import ModifyCategory from './components/category/ModifyCategory';
 
 const App = () => {
   return(
@@ -14,6 +15,7 @@ const App = () => {
         <CategoryList />
         <AddCategory />
         <DeleteCategory />
+        <ModifyCategory />
       </main>
     </div>
   );

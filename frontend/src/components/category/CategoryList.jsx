@@ -68,7 +68,7 @@ const CategoryList = () => {
           {loading && <li>Loading...</li>} 
           {!loading && !error && categories.map((category) => ( //Si no esta cargando ni hay errores obtenemos las categorias
             //console.log(category), Comprobar si se repilen las categorias
-            <li key={category.category_id}>{category.category_name}</li> //Utilizamos el id como key para identificar cada categoria
+            <li key={category.category_id}>{category.category_name} | ID: {category.category_id}</li> //Utilizamos el id como key para identificar cada categoria
             ))}
         </ul>
   </div>
