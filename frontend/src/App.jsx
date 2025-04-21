@@ -4,13 +4,14 @@ import AddCategory from './components/category/AddCategory';
 import CategoryList from './components/category/CategoryList';
 
 const App = () => {
-  return (
+  return(
     <div className="App">
       <header className="App-header">
         <h1>Pruebas</h1>
       </header>
       <main>
         <CategoryList />
+        <AddCategory />
       </main>
     </div>
   );

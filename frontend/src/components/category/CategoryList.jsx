@@ -3,7 +3,6 @@
 // Este componente muestra una lista de categorías obtenidas desde el backend.
 // Incluye manejo de carga, errores y posibilidad de cancelar la solicitud HTTP.
 
-
 import React, { useEffect, useState } from 'react';
 import api from '../../../api.jsx';
 
@@ -42,8 +41,8 @@ const CategoryList = () => {
   const handleCancelRequest = () => {
     if (controller) {
       controller.abort();
-      setError(new Error("Request canceled"));
-      setLoading(false);
+      setError(new Error("Request canceled")); //Error para indicar que la peticion se cancelo
+      setLoading(false); //indicar que loading esta en false para que no se muestre el loading
     }
   };
 
@@ -60,14 +59,14 @@ const CategoryList = () => {
     }
   }, []);
 
-  //Render
+
   return (
     <div>
       <h2>Categories</h2>  
-       <button onClick={handleCancelRequest}>Cancel Request</button> //Boton para cancelar la peticion
+       <button onClick={handleCancelRequest}>Cancel Request</button> 
         <ul>
-          {error && <li>Error: {error.message}</li>}//Comprobar si hay errores
-          {loading && <li>Loading...</li>}//Comprobar si esta cargando
+          {error && <li>Error: {error.message}</li>} 
+          {loading && <li>Loading...</li>} 
           {!loading && !error && categories.map((category) => ( //Si no esta cargando ni hay errores obtenemos las categorias
             //console.log(category), Comprobar si se repilen las categorias
             <li key={category.category_id}>{category.category_name}</li> //Utilizamos el id como key para identificar cada categoria
