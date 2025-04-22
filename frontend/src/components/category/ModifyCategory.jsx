@@ -37,8 +37,8 @@ const ModifyCategory = () => {
         <div>
             <h2>Modify Category</h2>
             <form onSubmit={handleSubmit}>
-                <input type="number" placeholder="Category ID"value={id} onChange={(e) => setId(e.target.value)}/> <br />
-                <input type="text" placeholder="Category Name"value={name} onChange={(e) => setName(e.target.value)}/> <br />
+                <input type="number" placeholder="Category ID" name="category_id" value={id} onChange={(e) => setId(e.target.value)}/> <br />
+                <input type="text" placeholder="Category Name" name="category_name" value={name} onChange={(e) => setName(e.target.value)}/> <br />
                 <button type="submit">Modify</button>   
                 {loading && <p>Loading...</p>}
                 {error && <p>Error: {error.message}</p>}
