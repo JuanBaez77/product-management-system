@@ -82,18 +82,7 @@ export default function Sidenav() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Drawer
-          variant="permanent"
-          open={open}
-          sx={{
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth, 
-              padding: 0,         
-              margin: 0,
-            },
-          }}
-        >
+      <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={() => setOpen(!open)}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
