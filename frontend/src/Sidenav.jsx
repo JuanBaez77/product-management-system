@@ -13,8 +13,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import { createTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import FolderCopyIcon from '@mui/icons-material/FolderCopy';
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 const drawerWidth = 240;
 
@@ -39,6 +43,7 @@ const closedMixin = (theme) => ({
   },
 });
 
+
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -47,6 +52,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
+
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme }) => ({
@@ -83,21 +89,51 @@ export default function Sidenav() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={() => setOpen(!open)}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        <DrawerHeader sx={{ backgroundColor: '#28232E' }}>
+          <ListItem>
+            <Typography variant="h6" noWrap component="div">
+              <b style={{color: '#91D150', fontSize: 30,}}>MyDash</b>
+            </Typography>
+          </ListItem>
+          <IconButton onClick={() => setOpen(!open)} 
+              sx={{ 
+                ':hover': {
+                  backgroundColor: '#2F3636',
+                },
+                color: '#91D150',
+                outline: 'none', 
+                boxShadow: 'none', 
+                marginRight: '4px',
+                '&:focus': { 
+                  outline: 'none',
+                  boxShadow: 'none',
+                }, 
+              }}
+            >
+            {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
-        <List disablePadding>
-          <ListItem disablePaddingsg sx={{height: 50,}} onClick={() => {navigate("/")} }>
+        <Divider sx={{ backgroundColor: 'black', height: '2px' }}/>
+        <List disablePadding sx={{ backgroundColor: '#28232E', height: '100%' }}>
+          <ListItem disablePadding sx={{height: 50,}} onClick={() => {navigate("/")} }>
               <ListItemButton
+                disableRipple
                 sx={{
                   height: '50px',      
                   width: '100%',      
                   px: 2.5,
                   justifyContent: open ? 'initial' : 'center',
                   alignItems: 'center', 
+                  '&:hover': {
+                    backgroundColor: '#91D150',
+                    transform: 'scale(1.05)',
+                    '& .MuiListItemIcon-root': {
+                      color: 'black',
+                    },
+                    '& .MuiListItemText-root .MuiTypography-root': {
+                      color: 'black',
+                    },
+                  },
                 }}
               >
                 <ListItemIcon
@@ -107,26 +143,43 @@ export default function Sidenav() {
                     justifyContent: 'center',
                     display: 'flex',
                     alignItems: 'center',
+                    color: 'white',
+                    '&:hover': {
+                      color: 'black',
+                      transition: 'color 0.3s ease',
+                    },
                   }}
                 >
-                  <InboxIcon />
+                  <HomeIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Home"
                   sx={{
                     opacity: open ? 1 : 0,
+                    color: 'white',
                   }}
                 />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePaddingsg sx={{height: 50,}} onClick={() => {navigate("/products")} }>
-              <ListItemButton
+          <ListItem disablePadding sx={{height: 50}} onClick={() => {navigate("/products")} }>
+          <ListItemButton
+                disableRipple
                 sx={{
                   height: '50px',      
                   width: '100%',      
                   px: 2.5,
                   justifyContent: open ? 'initial' : 'center',
                   alignItems: 'center', 
+                  '&:hover': {
+                    backgroundColor: '#91D150',
+                    transform: 'scale(1.05)',
+                    '& .MuiListItemIcon-root': {
+                      color: 'black',
+                    },
+                    '& .MuiListItemText-root .MuiTypography-root': {
+                      color: 'black',
+                    },
+                  },
                 }}
               >
                 <ListItemIcon
@@ -136,26 +189,44 @@ export default function Sidenav() {
                     justifyContent: 'center',
                     display: 'flex',
                     alignItems: 'center',
+                    color: 'white',
+                    '&:hover': {
+                      color: 'black',
+                      transition: 'color 0.3s ease',
+                    },
                   }}
                 >
-                  <InboxIcon />
+                  <FolderCopyIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Products"
                   sx={{
                     opacity: open ? 1 : 0,
+                    color: 'white',
+                    fontFamily: 'montserrat',
                   }}
                 />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePaddingsg sx={{height: 50,}} onClick={() => {navigate("/settings")} }>
-              <ListItemButton
+          <ListItem disablePadding sx={{height: 50,}} onClick={() => {navigate("/settings")} }>
+          <ListItemButton
+                disableRipple
                 sx={{
                   height: '50px',      
                   width: '100%',      
                   px: 2.5,
                   justifyContent: open ? 'initial' : 'center',
                   alignItems: 'center', 
+                  '&:hover': {
+                    backgroundColor: '#91D150',
+                    transform: 'scale(1.05)',
+                    '& .MuiListItemIcon-root': {
+                      color: 'black',
+                    },
+                    '& .MuiListItemText-root .MuiTypography-root': {
+                      color: 'black',
+                    },
+                  },
                 }}
               >
                 <ListItemIcon
@@ -165,20 +236,26 @@ export default function Sidenav() {
                     justifyContent: 'center',
                     display: 'flex',
                     alignItems: 'center',
+                    color: 'white',
+                    '&:hover': {
+                      color: 'black',
+                      transition: 'color 0.3s ease',
+                    },
                   }}
                 >
-                  <InboxIcon />
+                  <SettingsIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Settings"
                   sx={{
                     opacity: open ? 1 : 0,
+                    color: 'white',
                   }}
                 />
             </ListItemButton>
           </ListItem>
         </List>
-        <Divider />
+        <Divider sx={{ backgroundColor: 'black', height: '2px' }}/>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
