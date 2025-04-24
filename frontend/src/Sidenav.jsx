@@ -79,9 +79,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function Sidenav() {
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+export default function Sidenav({ open, setOpen }) {
   const navigate = useNavigate();
 
 

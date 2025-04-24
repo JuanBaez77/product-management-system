@@ -1,34 +1,22 @@
 import React from 'react';
-import Sidenav from '../Sidenav.jsx';
 import { Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
 
-export default function Home() {
-    return (
-        <Box sx={{ display: 'flex', height: '100vh' }}>
-            
-            <Box sx={{ width: '240px', flexShrink: 0 }}>
-                <Sidenav />
-            </Box>
+const drawerWidthOpen = 240;
+const drawerWidthClosed = 72;
 
-            <Box sx={{ flexGrow: 1, padding: 3 }}>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        backgroundColor: 'red',
-                        padding: '16px',
-                    }}
-                >
-                    <Typography variant="h4" component="h1" sx={{ margin: 0 }}>
-                        Home
-                    </Typography>
-                </Box>
-
-                <Typography variant="h5" component="div" sx={{ mt: 2 }}>
-                    Home
-                </Typography>
-            </Box>
-        </Box>
-    );
+export default function Home({ open }) {
+  return (
+    <Box
+      sx={{
+        marginLeft: open ? `${drawerWidthOpen}px` : `${drawerWidthClosed}px`,
+        transition: 'margin 0.3s ease',
+        padding: 3,
+        backgroundColor: '#f0f0f0',
+        minHeight: '100vh',
+      }}
+    >
+      <h1>Home</h1>
+      <p>Bienvenido a tu sistema de gestión de productos 🚀</p>
+    </Box>
+  );
 }
