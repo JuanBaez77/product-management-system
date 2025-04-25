@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -13,17 +13,18 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { createTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 
-const drawerWidth = 240;
+const drawerWidthOpen = 240;
+const drawerWidthClosed = 65;
+
 
 const openedMixin = (theme) => ({
-  width: drawerWidth,
+  width: drawerWidthOpen,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -56,7 +57,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme }) => ({
-    width: drawerWidth,
+    width: drawerWidthOpen,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
@@ -86,7 +87,20 @@ export default function Sidenav({ open, setOpen }) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant={'permanent'}
+        open={open}
+        onClose={() => setOpen(false)}
+        sx={{
+          width: open ? drawerWidthOpen : drawerWidthClosed,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+             width: open ? drawerWidthOpen : drawerWidthClosed,
+            transition: 'width 0.3s ease',
+            overflowX: 'hidden',
+          },
+        }}
+      >
         <DrawerHeader sx={{ backgroundColor: '#28232E' }}>
           <ListItem>
             <Typography variant="h6" noWrap component="div">

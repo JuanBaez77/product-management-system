@@ -1,12 +1,14 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
+
 const drawerWidthOpen = 240;
 const drawerWidthClosed = 72;
 
 export default function Home({ open }) {
   return (
-    <Box
+    <>
+      <Box
       sx={{
         marginLeft: open ? `${drawerWidthOpen}px` : `${drawerWidthClosed}px`,
         transition: 'margin 0.3s ease',
@@ -18,5 +20,6 @@ export default function Home({ open }) {
       <h1>Home</h1>
       <p>Bienvenido a tu sistema de gestión de productos 🚀</p>
     </Box>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
+import BasicTabs from '../components/Tabs';
 
 const drawerWidthOpen = 240;
 const drawerWidthClosed = 72;
@@ -15,8 +16,9 @@ export default function Products({ open }) {
         minHeight: '100vh',
       }}
     >
-      <h1>Productos</h1>
+      <h1>My Products</h1>
       <p>Acá podés gestionar tus productos 📦</p>
+      <BasicTabs />  
     </Box>
   );
 }
