@@ -16,8 +16,10 @@
     "@mui/material": "^7.0.2",
     "@mui/utils": "^7.0.2",
     "axios": "^1.8.4",
+    "chance": "^1.1.12",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-virtuoso": "^4.12.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

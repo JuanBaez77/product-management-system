@@ -4,6 +4,11 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { ListItemButton, List, ListItemIcon, ListItem } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import ListItemText from '@mui/material/ListItemText';
+import ProductTable from './Table';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,25 +47,109 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%', display: 'space-between', flexDirection: 'row' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="all" {...a11yProps(0)} />
-          <Tab label="Active" {...a11yProps(1)} />
-          <Tab label="Archived" {...a11yProps(2)} />
-          <Tab label="Deleted" {...a11yProps(2)} />
-        </Tabs>
+    <Box sx={{ width: '100%' }}>
+        <Box
+            sx={{
+            //borderBottom: 1,
+            //borderColor: 'divider',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            }}
+        >
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+                sx={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    ml: 1,
+                    mr: 1,
+                    backgroundColor: '#e9e9e9',
+                    borderRadius: '7px',
+                 }}
+            >
+            <Tab label="All" {...a11yProps(0)} />
+            <Tab label="Active" {...a11yProps(1)} />
+            <Tab label="Archived" {...a11yProps(2)} />
+            <Tab label="Deleted" {...a11yProps(3)} />
+            </Tabs>
+
+            <List sx={{ display: 'flex', alignItems: 'center' }} >
+                <ListItem>
+                    <ListItemText>
+                        <TextField label='Search' variant='standard'
+                            sx={{
+                                width: '100%',
+                                mr: 1,
+                                backgroundColor: '#e9e9e9',
+                                ml: 0,
+                                mb: 2,
+                            }}
+                        />
+                    </ListItemText>
+                </ListItem>
+
+                <ListItem>
+                    <ListItemIcon>
+                        <FilterListIcon sx={{ fontSize: 30 }}/>
+                    </ListItemIcon>
+                </ListItem>
+
+                <ListItem sx={{ display: 'flex', alignItems: 'center' }}>
+                        <ListItemButton 
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              ml: 1,
+                              mr: 1,
+                              backgroundColor: '#91D150',
+                              borderRadius: '7px',
+                              '&:hover': {
+                                backgroundColor: '#2F3636',
+                                transform: 'scale(1.05)',
+                                '& .MuiListItemIcon-root': {
+                                  color: '#91D150',
+                                },
+                                '& .MuiListItemText-root .MuiTypography-root': {
+                                    color: '#91D150',
+                                }
+                              } 
+                            }}
+                        >
+                        <ListItemIcon
+                            sx={{
+                                color: '#2F3636',
+                                '&:hover': {
+                                    color: '#91D150',
+                                }
+                            }}
+                        >
+                            <AddIcon sx={{ fontSize: 30 }}/>
+                        </ListItemIcon>
+                        <ListItemText primary="Add" 
+                            sx={{ color: '#black', fontWeight: 'bold' }}
+                            
+                            />
+                        </ListItemButton>
+                </ListItem>            
+            </List>
+        </Box>
         <CustomTabPanel value={value} index={0}>
-        Item One
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        Item Two
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        Item Three
-      </CustomTabPanel>
-      </Box>
-      <TextField id="standard-basic" label="Standard" variant="standard" />
-    </Box>
+            <ProductTable 
+                sx={{ 
+                    width: '100%',
+                    height: '100%'
+                }}
+            /> 
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+            Item Two
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+            Item Three
+        </CustomTabPanel>
+        </Box>
+
   );
 }
