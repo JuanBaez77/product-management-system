@@ -7,51 +7,18 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { TableVirtuoso } from 'react-virtuoso';
-import Chance from 'chance';
-
-const chance = new Chance(42);
-
-function createData(id) {
-  return {
-    id,
-    firstName: chance.first(),
-    lastName: chance.last(),
-    age: chance.age(),
-    phone: chance.phone(),
-    state: chance.state({ full: true }),
-  };
-}
 
 const columns = [
-  {
-    width: 100,
-    label: 'First Name',
-    dataKey: 'firstName',
-  },
-  {
-    width: 100,
-    label: 'Last Name',
-    dataKey: 'lastName',
-  },
-  {
-    width: 50,
-    label: 'Age',
-    dataKey: 'age',
-    numeric: true,
-  },
-  {
-    width: 110,
-    label: 'State',
-    dataKey: 'state',
-  },
-  {
-    width: 130,
-    label: 'Phone Number',
-    dataKey: 'phone',
-  },
+  { width: 10, label: 'Id', dataKey: 'product_id' },
+  { width: 50, label: 'Name', dataKey: 'product_name' },
+  { width: 100, label: 'Description', dataKey: 'product_description' },
+  { width: 50, label: 'Price', dataKey: 'price' },
+  { width: 50, label: 'Stock', dataKey: 'stock' },
+  { width: 100, label: 'Created at', dataKey: 'created_at' },
+  { width: 50, label: 'Category', dataKey: 'category_name' },
+  { width: 50, label: 'Photo', dataKey: 'photo' },
+  { width: 50, label: 'Action', dataKey: 'action' },
 ];
-
-const rows = Array.from({ length: 200 }, (_, index) => createData(index));
 
 const VirtuosoTableComponents = {
   Scroller: React.forwardRef((props, ref) => (
@@ -91,19 +58,31 @@ function rowContent(_index, row) {
           key={column.dataKey}
           align={column.numeric || false ? 'right' : 'left'}
         >
-          {row[column.dataKey]}
+          {column.dataKey === 'photo' ? (
+            row[column.dataKey] ? (
+              <img
+                src={row[column.dataKey]}
+                alt="Product"
+                style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: 8 }}
+              />
+            ) : (
+              'No Image'
+            )
+          ) : (
+            row[column.dataKey]
+          )}
         </TableCell>
       ))}
     </React.Fragment>
   );
 }
 
-export default function ProductTable() {
+export default function ProductTable({ rows }) {
   return (
-    <Paper style={{ height: 900, width: '100%', overflow: 'hidden', vh: '100vh' }}>
+    <Paper style={{ height: 900, width: '100%', overflow: 'hidden' }}>
       <TableVirtuoso
-        data={rows}
         components={VirtuosoTableComponents}
+        data={rows}
         fixedHeaderContent={fixedHeaderContent}
         itemContent={rowContent}
       />

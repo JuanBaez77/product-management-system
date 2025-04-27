@@ -7,7 +7,7 @@ from app import models, schemas
 router = APIRouter()
 
 # GET | Obtener todos los productos
-@router.get("/products", response_model=List[schemas.ProductOut], summary="Obtiene todos los productos")
+@router.get("", response_model=List[schemas.ProductOut], summary="Obtiene todos los productos")
 def get_products(db: Session = Depends(get_db)):
     products = db.query(models.Product).all()
     return products
