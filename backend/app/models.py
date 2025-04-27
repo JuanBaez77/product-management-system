@@ -24,6 +24,7 @@ class Product(Base):
     product_description = Column(String(100), nullable=False)
     price = Column(Float, nullable=False)
     stock = Column(Integer, nullable=False)
+    photo = Column(String(255), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     
     # ForeignKey con ON DELETE CASCADE
