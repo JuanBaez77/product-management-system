@@ -18,7 +18,19 @@ const ProductList = () => {
             setError(null);//Limpia errores anteriores
             const response = await api.get('/products');
             console.log('Respuesta del backend:', response.data);
-            setProducts(response.data);
+            
+            // Mapea los productos para adaptarlos a la tabla
+            const mappedProducts = response.data.map(product => ({
+                product_id: product.product_id,
+                product_name: product.product_name,
+                product_description: product.product_description,
+                price: "$"+product.price,
+                stock: product.stock,
+                category_name: product.category?.category_name || 'No Category',
+                photo: product.photo || 'No Image',
+            }));
+    
+            setProducts(mappedProducts);
         } catch (error) {
             setError(error);
             console.error('Error fetching products:', error);

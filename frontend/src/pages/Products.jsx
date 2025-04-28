@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import BasicTabs from '../components/Tabs';
+import ProductList from '../components/product/ProductList';
 
 const drawerWidthOpen = 240;
 const drawerWidthClosed = 72;
@@ -14,11 +15,14 @@ export default function Products({ open }) {
         padding: 3,
         backgroundColor: '#f8f9fa',
         minHeight: '100vh',
+        position: 'relative',
+        mt: 0
       }}
     >
       <h1>My Products</h1>
       <p>Acá podés gestionar tus productos 📦</p>
       <BasicTabs />  
+      <ProductList />
     </Box>
   );
 }

@@ -85,7 +85,11 @@ export default function Sidenav({ open, setOpen }) {
 
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ 
+      display: 'flex', 
+      flexGrow: 1,
+      marginTop: 0,
+      }}>
       <CssBaseline />
       <Drawer
         variant={'permanent'}

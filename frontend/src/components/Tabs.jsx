@@ -8,7 +8,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { ListItemButton, List, ListItemIcon, ListItem } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ListItemText from '@mui/material/ListItemText';
-import ProductTable from './Table';
+
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,7 +21,7 @@ function CustomTabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 0 }}>{children}</Box>}
     </div>
   );
 }
@@ -58,6 +58,11 @@ export default function BasicTabs() {
             }}
         >
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+                  TabIndicatorProps={{
+                    style: {
+                      backgroundColor: '#4CAF50', 
+                    },
+                  }}
                 sx={{ 
                     display: 'flex',
                     alignItems: 'center',
@@ -66,6 +71,9 @@ export default function BasicTabs() {
                     mr: 1,
                     backgroundColor: '#e9e9e9',
                     borderRadius: '7px',
+                    '&.Mui-selected' : {
+                      color: '#4CAF50'
+                    }
                  }}
             >
             <Tab label="All" {...a11yProps(0)} />
@@ -135,21 +143,6 @@ export default function BasicTabs() {
                 </ListItem>            
             </List>
         </Box>
-        <CustomTabPanel value={value} index={0}>
-            <ProductTable 
-                sx={{ 
-                    width: '100%',
-                    height: '100%'
-                }}
-            /> 
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-            Item Two
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-            Item Three
-        </CustomTabPanel>
-        </Box>
-
+      </Box>
   );
 }

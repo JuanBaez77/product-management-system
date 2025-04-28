@@ -11,12 +11,11 @@ import { TableVirtuoso } from 'react-virtuoso';
 const columns = [
   { width: 10, label: 'Id', dataKey: 'product_id' },
   { width: 50, label: 'Name', dataKey: 'product_name' },
+  { width: 50, label: 'Photo', dataKey: 'photo' },
   { width: 100, label: 'Description', dataKey: 'product_description' },
   { width: 50, label: 'Price', dataKey: 'price' },
   { width: 50, label: 'Stock', dataKey: 'stock' },
-  { width: 100, label: 'Created at', dataKey: 'created_at' },
   { width: 50, label: 'Category', dataKey: 'category_name' },
-  { width: 50, label: 'Photo', dataKey: 'photo' },
   { width: 50, label: 'Action', dataKey: 'action' },
 ];
 
