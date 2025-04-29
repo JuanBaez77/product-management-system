@@ -1,13 +1,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import { Tabs, Tab }from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { ListItemButton, List, ListItemIcon, ListItem } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ListItemText from '@mui/material/ListItemText';
+import Autocomplete from '@mui/material/Autocomplete';
+import ProductList from './product/ProductList';
 
 
 function CustomTabPanel(props) {
@@ -41,6 +42,9 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const [products, setProducts] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState('');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -57,43 +61,125 @@ export default function BasicTabs() {
             alignItems: 'center',
             }}
         >
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
-                  TabIndicatorProps={{
-                    style: {
-                      backgroundColor: '#4CAF50', 
-                    },
-                  }}
-                sx={{ 
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    ml: 1,
-                    mr: 1,
-                    backgroundColor: '#e9e9e9',
-                    borderRadius: '7px',
-                    '&.Mui-selected' : {
-                      color: '#4CAF50'
-                    }
-                 }}
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+              TabIndicatorProps={{
+                style: {
+                  backgroundColor: '#4CAF50', // indicador debajo
+                },
+              }}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                ml: 1,
+                mr: 1,
+                backgroundColor: '#e9e9e9',
+                borderRadius: '7px',
+              }}
             >
-            <Tab label="All" {...a11yProps(0)} />
-            <Tab label="Active" {...a11yProps(1)} />
-            <Tab label="Archived" {...a11yProps(2)} />
-            <Tab label="Deleted" {...a11yProps(3)} />
+              <Tab
+                label="All"
+                {...a11yProps(0)}
+                sx={{
+                  textTransform: 'none',
+                  color: 'gray', 
+                  '&.Mui-selected': {
+                    color: '#4CAF50', 
+                  },
+                }}
+              />
+              <Tab
+                label="Active"
+                {...a11yProps(1)}
+                sx={{
+                  textTransform: 'none',
+                  color: 'gray',
+                  '&.Mui-selected': {
+                    color: '#4CAF50',
+                  },
+                }}
+              />
+              <Tab
+                label="Archived"
+                {...a11yProps(2)}
+                sx={{
+                  textTransform: 'none',
+                  color: 'gray',
+                  '&.Mui-selected': {
+                    color: '#4CAF50',
+                  },
+                }}
+              />
+              <Tab
+                label="Deleted"
+                {...a11yProps(3)}
+                sx={{
+                  textTransform: 'none',
+                  color: 'gray',
+                  '&.Mui-selected': {
+                    color: '#4CAF50',
+                  },
+                }}
+              />
             </Tabs>
 
             <List sx={{ display: 'flex', alignItems: 'center' }} >
                 <ListItem>
                     <ListItemText>
-                        <TextField label='Search' variant='standard'
-                            sx={{
-                                width: '100%',
-                                mr: 1,
-                                backgroundColor: '#e9e9e9',
-                                ml: 0,
-                                mb: 2,
+                    <div style={{ display: 'none' }}>
+                    <ProductList onProductsLoaded={(loaded) => {
+                      setProducts(loaded);
+                      setFilteredProducts(loaded);
+                    }} />
+                    </div>
+                    {products.length > 0 && (
+                      <Autocomplete
+                        disablePortal
+                        options={products.map(p => p.product_name)}
+                        open={inputValue.length > 0}
+                        onInputChange={(event, newInputValue) => {
+                          setInputValue(newInputValue);
+                        }}
+                        sx={{
+                          width: 200,
+                          ml: 1,
+                          mr: 1,
+                          backgroundColor: '#e9e9e9',
+                          borderRadius: 0,
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Search"
+                            variant="standard"
+                            InputLabelProps={{
+                              sx: {
+                                paddingLeft: 1,
+                                fontSize: 15,
+                                color: 'gray',
+                                '&.Mui-focused': {
+                                  color: '#4CAF50',
+                                },
+                              },
                             }}
-                        />
+                            sx={{
+                              '& .MuiInput-underline:before': {
+                                borderBottom: '2px solid #4CAF50', 
+                              },
+                              '& .MuiInput-underline:hover:before': {
+                                borderBottom: '2px solid #388E3C', 
+                              },
+                              '& .MuiInput-underline:after': {
+                                borderBottom: '3px solid #4CAF50', 
+                              },
+                            }}
+                          />
+                        )}
+                      />
+                    )}
                     </ListItemText>
                 </ListItem>
 

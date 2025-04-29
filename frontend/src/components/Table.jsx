@@ -77,6 +77,10 @@ function rowContent(_index, row) {
 }
 
 export default function ProductTable({ rows }) {
+  console.log('rows:', rows);
+  if (!rows || rows.length === 0) {
+    return <div>No hay productos para mostrar.</div>;
+  }
   return (
     <Paper style={{ height: 900, width: '100%', overflow: 'hidden' }}>
       <TableVirtuoso
